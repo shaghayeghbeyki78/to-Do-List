@@ -74,3 +74,10 @@ ul li ::before{
     top: 12px;
     left: 8px;
 }
+ul li.checked{
+    color: #555;
+    text-decoration: line-through;
+}
+ul li.checked{
+    background-image: url(img/jinx-arcane-s2-series-4k-wallpaper-uhdpaper.com-480@3@b.jpg);
+}

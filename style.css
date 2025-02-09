@@ -79,7 +79,7 @@ ul li.checked{
     text-decoration: line-through;
 }
 ul li.checked{
-    background-image: url(img/jinx-arcane-s2-series-4k-wallpaper-uhdpaper.com-480@3@b.jpg);
+ border: none;
 }
 ul li span{
     position: absolute;

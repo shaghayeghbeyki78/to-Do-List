@@ -13,7 +13,7 @@ function addTask() {
 
         // آیکون ویرایش
         let editSpan = document.createElement('span');
-        editSpan.innerHTML = "✏️"; // آیکون مداد
+        editSpan.innerHTML =  "&#9998;"; // آیکون مداد
         editSpan.className = 'edit';
         li.appendChild(editSpan);
 
@@ -68,4 +68,4 @@ clearAllButton.addEventListener("click", function() {
 // به‌روزرسانی وضعیت دکمه حذف همه وظایف
 function updateClearAllButton() {
     clearAllButton.style.display = listContainer.children.length > 0 ? 'inline' : 'none';
-}  
+}

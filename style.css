@@ -1,16 +1,17 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.container{
+
+.container {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg, #153677,#4e085f);
-
+    background: linear-gradient(135deg, #153677, #4e085f);
     padding: 10px;
 }
-.todo-app{
+
+.todo-app {
     width: 100%;
     max-width: 540px;
     background: #fff;
@@ -18,19 +19,22 @@
     padding: 40px 30px 70px;
     border-radius: 10px;
 }
-.todo-app h2{
+
+.todo-app h2 {
     color: #002765;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
-.todo-app h2 img{
+
+.todo-app h2 img {
     width: 30px;
     margin-left: 10px;
     opacity: 80%;
     border-radius: 40%;
 }
-.row{
+
+.row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,7 +43,8 @@
     padding-left: 20px;
     margin-bottom: 25px;
 }
-input{
+
+input {
     flex: 1;
     border: none;
     outline: none;
@@ -47,59 +52,69 @@ input{
     padding: 10px;
     font-weight: 14px;
 }
-button{
+
+button {
     border: none;
     outline: none;
-    padding: 16px 50px;
-    background:#ff5945;
+    padding: 16px 20px; /* کاهش padding */
+    background: #ff5945;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    border-radius:40px ;
+    border-radius: 40px;
 }
-ul li {
+
+ul {
     list-style: none;
+    padding: 0;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 17px;
     padding: 12px 8px 12px 50px;
     user-select: none;
     cursor: pointer;
     position: relative;
 }
-ul li::before{
+
+ul li::before {
     content: '';
     position: absolute;
     height: 28px;
     width: 28px;
     border-radius: 50%;
-    background-image:url(img/unchecked.png) ;
+    background-image: url(img/unchecked.png); /* آیکون چک نشده */
     background-size: cover;
     background-position: center;
-    top: 3px;
-    right: 28rem;
+    top: 50%;
+    left: 10px; /* جابجایی آیکون به سمت چپ */
+    transform: translateY(-50%);
 }
-ul li.checked{
+
+ul li.checked {
     color: #555;
     text-decoration: line-through;
 }
-ul li.checked::before{
-    background-image: url(img/checked.png);
-    border: none;
-}
-ul li span{
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-    color: #555;
-    line-height: 40px;
-    text-align: center;
-    border-radius: 50%;
-}
-ul li span:hover{
-    background: #edeef0;
 
+ul li.checked::before {
+    background-image: url(img/checked.png); /* آیکون چک شده */
+}
+
+ul li span {
+    position: relative;
+    font-size: 22px; /* اندازه فونت آیکون‌ها */
+    color: #555;
+    margin-left: 10px; /* فاصله آیکون‌ها */
+    cursor: pointer;
+}
+
+ul li span:hover {
+    background: #edeef0; /* رنگ پس زمینه برای آیکون‌ها در حالت هاور */
+    border-radius: 50%;
+    padding: 5px; /* ایجاد فضای داخلی برای آیکون‌ها */
 }
 
 button.clear-all {
@@ -129,4 +144,4 @@ button.clear-all:hover {
 
 #clear-all i {
     font-size: 25px;
-}
+}  

@@ -16,10 +16,21 @@ function addTaskToDOM(taskValue) {
     const li = document.createElement("li");
     li.innerHTML = `
         <input type="checkbox" onchange="toggleTask(this)">
-        <span class="task-text" onclick="toggleTaskText(this)">${taskValue}</span>
+        <span class="task-text" onclick="toggleTaskText(this)">${taskValue.text}</span>
         <span class='edit' onclick="editTask(this)">✏️</span>
         <span class='delete' onclick="removeTask(this)">❌</span>
     `;
+    const checkbox = li.querySelector("input[type='checkbox']");
+    checkbox.checked = taskValue.checked;
+
+    const taskText = li.querySelector(".task-text");
+    if (checkbox.checked) {
+        taskText.classList.add("checked");
+    } else {
+        taskText.classList.remove("checked");
+    }
+
+
     listContainer.appendChild(li);
 
     // فراخوانی تابع برای تنظیم وضعیت دکمه ویرایش پس از ایجاد
@@ -34,8 +45,13 @@ addTaskButton.addEventListener("click", function () {
         return;
     }
 
-    addTaskToDOM(taskValue);
-    saveTaskToLocalStorage(taskValue);
+    const taskObject = {
+        text: taskValue,
+        checked: false
+    };
+
+    addTaskToDOM(taskObject);
+    saveTaskToLocalStorage(taskObject);
     inputBox.value = ""; // پاک کردن ورودی پس از افزودن وظیفه
 });
 
@@ -49,16 +65,16 @@ function saveTaskToLocalStorage(taskValue) {
 // حذف وظیفه
 function removeTask(element) {
     const li = element.closest("li");
-    const taskValue = li.querySelector(".task-text").textContent.trim();
-    removeTaskFromLocalStorage(taskValue);
+    const taskText = li.querySelector(".task-text").textContent.trim();
+    removeTaskFromLocalStorage(taskText);
     li.remove();
 }
 
 // حذف وظیفه از Local Storage
 function removeTaskFromLocalStorage(taskValue) {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const updatedTasks = tasks.filter(task => task !== taskValue);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = tasks.filter(task => task.text !== taskValue);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // ویرایش وظیفه
@@ -76,10 +92,10 @@ function editTask(element) {
 
 // به‌روزرسانی وظیفه در Local Storage
 function updateTaskInLocalStorage(oldValue, newValue) {
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const taskIndex = tasks.indexOf(oldValue);
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const taskIndex = tasks.findIndex(task => task.text === oldValue);
     if (taskIndex > -1) {
-        tasks[taskIndex] = newValue;
+        tasks[taskIndex].text = newValue;
     }
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -111,6 +127,23 @@ function toggleTask(checkbox) {
 
     // تنظیم وضعیت دکمه ویرایش
     setEditButtonState(li);
+
+    // ذخیره وضعیت چک باکس در local storage
+    updateTaskCheckStateInLocalStorage(li);
+}
+
+function updateTaskCheckStateInLocalStorage(li) {
+    const taskText = li.querySelector(".task-text").textContent.trim();
+    const checkbox = li.querySelector("input[type='checkbox']");
+    const isChecked = checkbox.checked;
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const taskIndex = tasks.findIndex(task => task.text === taskText);
+
+    if (taskIndex > -1) {
+        tasks[taskIndex].checked = isChecked;
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
 }
 
 // تابع toggleTaskText برای تغییر وضعیت چک‌شده با کلیک روی متن تسک

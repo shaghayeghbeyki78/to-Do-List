@@ -21,6 +21,9 @@ function addTaskToDOM(taskValue) {
         <span class='delete' onclick="removeTask(this)">❌</span>
     `;
     listContainer.appendChild(li);
+
+    // فراخوانی تابع برای تنظیم وضعیت دکمه ویرایش پس از ایجاد
+    setEditButtonState(li);
 }
 
 // افزودن وظیفه
@@ -81,6 +84,20 @@ function updateTaskInLocalStorage(oldValue, newValue) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// تنظیم وضعیت دکمه ویرایش
+function setEditButtonState(li) {
+    const checkbox = li.querySelector("input[type='checkbox']");
+    const editButton = li.querySelector(".edit");
+
+    if (checkbox.checked) {
+        editButton.style.pointerEvents = "none";
+        editButton.style.opacity = "0.5";
+    } else {
+        editButton.style.pointerEvents = "auto";
+        editButton.style.opacity = "1";
+    }
+}
+
 // تغییر وضعیت چک‌شده
 function toggleTask(checkbox) {
     const li = checkbox.closest("li");
@@ -91,6 +108,9 @@ function toggleTask(checkbox) {
     } else {
         taskText.classList.remove("checked");
     }
+
+    // تنظیم وضعیت دکمه ویرایش
+    setEditButtonState(li);
 }
 
 // تابع toggleTaskText برای تغییر وضعیت چک‌شده با کلیک روی متن تسک
@@ -112,4 +132,4 @@ clearAllButton.addEventListener("click", function () {
 });
 
 // بارگذاری وظایف هنگام بارگذاری صفحه
-loadTasks();
+loadTasks();  

@@ -112,4 +112,4 @@ clearAllButton.addEventListener("click", function () {
 });
 
 // بارگذاری وظایف هنگام بارگذاری صفحه
-loadTasks();  
+loadTasks();
